@@ -3,11 +3,25 @@
 namespace App\Entity;
 
 use ApiPlatform\Metadata\ApiResource;
+use App\Controller\TopListController;
 use App\Repository\TopListRepository;
 use Doctrine\ORM\Mapping as ORM;
+use ApiPlatform\Metadata\Get;
+use ApiPlatform\Metadata\Post;
+use ApiPlatform\Metadata\Put;
+use ApiPlatform\Metadata\Delete;
 
 #[ORM\Entity(repositoryClass: TopListRepository::class)]
-#[ApiResource]
+#[ApiResource(operations: [
+    new Get(
+        name: 'brand-top-list',
+        uriTemplate: '/toplist',
+        controller: TopListController::class,
+        read: false
+    )
+])]
+#[Get()]
+#[Post()]
 class TopList
 {
     #[ORM\Id]
@@ -19,7 +33,7 @@ class TopList
     private ?string $countryCode = null;
 
     #[ORM\ManyToOne]
-    #[ORM\JoinColumn(nullable: false)]
+    #[ORM\JoinColumn(referencedColumnName: 'brand_id', nullable: false)]
     private ?Brand $brand = null;
 
     public function getId(): ?int
