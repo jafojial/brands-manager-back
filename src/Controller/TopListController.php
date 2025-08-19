@@ -36,15 +36,13 @@ final class TopListController extends AbstractController
         $this->logger->info('BRANDS TOP LIST: In the endpoint.');
         $country = $request->headers->get('CF-IPCountry') ?? '';
 
-        $entries = $this->topListRepository->findBy(
-            ['countryCode' => $country]
-        );
+        $this->logger->info('BRANDS TOP LIST: Country code: ' . $country);
 
-        // If empty, use DEFAULT
+        $entries = $this->topListRepository->findByCountryCode($country);
+
+        // If empty, use the empty country code as default
         if (!$entries) {
-            $entries = $this->topListRepository->findBy(
-                ['countryCode' => 'DEFAULT'],
-            );
+            $entries = $this->topListRepository->findByCountryCode();
         }
 
         $data = [];
@@ -58,5 +56,13 @@ final class TopListController extends AbstractController
         }
 
         return $this->json($data);
+    }
+
+
+    #[Route('/', name: 'home')]
+    public function index(Request $request): Response
+    {
+        
+        return $this->render('base.html.twig', []);
     }
 }

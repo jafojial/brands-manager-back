@@ -13,6 +13,8 @@ use ApiPlatform\Metadata\Delete;
 
 #[ORM\Entity(repositoryClass: TopListRepository::class)]
 #[ApiResource(operations: [
+    new Get(),
+    new Post(),
     new Get(
         name: 'brand-top-list',
         uriTemplate: '/toplist',
@@ -20,8 +22,6 @@ use ApiPlatform\Metadata\Delete;
         read: false
     )
 ])]
-#[Get()]
-#[Post()]
 class TopList
 {
     #[ORM\Id]

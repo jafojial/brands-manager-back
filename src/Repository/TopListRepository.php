@@ -41,6 +41,23 @@ class TopListRepository extends ServiceEntityRepository
     //        ;
     //    }
 
+
+    public function findByCountryCode($countryCode = '', $limit = 10): ?array
+    {
+        $qb = $this->createQueryBuilder('tl')
+            ->join('tl.brand', 'b');
+
+        # Departure POI
+        if ($countryCode != '') {
+            $qb->andWhere('tl.countryCode = :countryCode')
+                ->setParameter('countryCode', $countryCode);
+        }
+
+        $qb->orderBy('b.rating', 'DESC');
+        
+        return $qb->getQuery()->getResult();
+    }
+
     
     /**
      * 
