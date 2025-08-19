@@ -1,6 +1,6 @@
 api_platform:
-    title: 'Brands manager APIs'
-    description: 'CRUD APIs operations for managing a top list of brands'
+    title: 'Brand management APIs'
+    description: 'CRUD API operations for managing a top list of brands'
     version: 1.0.0
     defaults:
         stateless: true
