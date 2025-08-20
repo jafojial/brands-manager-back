@@ -55,9 +55,7 @@ class BrandRepository extends ServiceEntityRepository
     }
 
     
-    /**
-     * 
-     */
+    
     public function delete(Brand $brand)
     {
         // _em is EntityManager which is DI by the base class
